@@ -117,8 +117,6 @@ public class Robot extends SampleRobot {
 			double yMove = buffer(LEFT_Y_AXIS,stick,false,.18,-.18);
 			double rotate = buffer(RIGHT_X_AXIS,stick,false,.18,-.18);
 			
-			
-			
 			myRobot.mecanumDrive_Cartesian(xMove, yMove, rotate, 0.0); // Drives the robot with mecanum 
 			Timer.delay(0.005); // wait for a motor update time
 		}
