@@ -1,6 +1,0 @@
-INDEX VERSION 1.130+C:\Public\MTR-Java-2018\.metadata\.plugins\org.eclipse.jdt.core
-3512505879.index
-1171657617.index
-1189771748.index
-3934886896.index
-3535710145.index
