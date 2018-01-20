@@ -45,6 +45,7 @@ public class RobotMap {
     public static final int RIGHT_Y_AXIS = 5;
     public static final int D_PAD = 6; 
 	
+    // Motor ID numbers, will likely change based on electronics
 	public static final int LEFT_FRONT = 0;
 	public static final int RIGHT_FRONT = 1;
 	public static final int LEFT_REAR = 2;

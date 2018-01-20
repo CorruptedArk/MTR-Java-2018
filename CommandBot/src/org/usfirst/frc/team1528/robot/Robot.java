@@ -7,12 +7,15 @@
 
 package org.usfirst.frc.team1528.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team1528.robot.commands.ExampleCommand;
+import org.usfirst.frc.team1528.robot.commands.LeftAutoCommand;
+import org.usfirst.frc.team1528.robot.commands.RightAutoCommand;
 import org.usfirst.frc.team1528.robot.commands.TeleOpCommand;
 import org.usfirst.frc.team1528.robot.subsystems.DriveSystem;
 import org.usfirst.frc.team1528.robot.subsystems.ExampleSubsystem;
@@ -75,7 +78,19 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
+		
+		String gameMessage;
+		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+		
+		if(gameMessage.charAt(0) == 'L') {
+			// if our color is on the left
+			m_autonomousCommand = new LeftAutoCommand();
+		}
+		else {
+			// if our color is on the right
+			m_autonomousCommand = new RightAutoCommand();
+		}
+		
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

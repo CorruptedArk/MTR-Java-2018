@@ -8,6 +8,8 @@
 package org.usfirst.frc.team1528.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -44,4 +46,80 @@ public class OI {
 	
 	public static final double ZERO_MARGIN = 0.18;
 	public static Joystick stick = new Joystick(0);
+	
+	public OI() {
+		
+	}
+	
+	/**
+     * This function buffers Joystick.getRawAxis() input.
+     * If the raw axis output is between lowMargin and highMargin, 
+     * buffer will automatically return 0
+     * @param axisNum The ID for the axis of a Joystick.
+     * @param joystickName The Joystick that input is coming from. 
+     * @param inverted If true, buffer will return the negative of the raw axis value
+     * @param highMargin The high margin of the buffer.
+     * @param lowMargin The low margin of the buffer.
+     * @return moveOut - The buffered axis data from joystickName.getRawAxis().
+     **/
+    public static double buffer(int axisNum, Joystick joystickName, boolean inverted, double highMargin, double lowMargin) {
+        double moveIn = joystickName.getRawAxis(axisNum);
+        double moveOut;
+        moveOut = 0.0;
+        
+        if(moveIn >= lowMargin && moveIn <= highMargin ) {
+            moveOut = 0.0;
+        }
+        else{
+            if(inverted){
+                moveOut = -moveIn;
+            }
+            else if(!inverted){ 
+                moveOut = moveIn;
+            }    
+        }
+	
+        return moveOut;
+   }
+   
+    
+    /**
+     * This function buffers Joystick.getRawAxis() input.
+     * If the raw axis output is between lowMargin and highMargin, 
+     * buffer will automatically return 0
+     * @param axisNum The ID for the axis of a Joystick.
+     * @param joystickName The Joystick that input is coming from. 
+     * @param inverted If true, buffer will negate the raw axis value
+     * @param highMargin The high margin of the buffer.
+     * @param lowMargin The low margin of the buffer.
+     * @param scale The magnitude that the raw axis value is multiplied by
+     * @return moveOut - The buffered axis data from joystickName.getRawAxis().
+     **/
+    public static double buffer(int axisNum, Joystick joystickName, boolean inverted, double highMargin, double lowMargin, double scale) {
+        double moveIn = joystickName.getRawAxis(axisNum);
+        double moveOut;
+        moveOut = 0.0;
+        
+        if(moveIn >= lowMargin && moveIn <= highMargin ) {
+            moveOut = 0.0;
+        }
+        else{
+            if(inverted){
+                moveOut = -moveIn;
+            }
+            else if(!inverted){ 
+                moveOut = moveIn;
+            }    
+        }
+        
+        scale = Math.abs(scale);
+        
+        if(scale >= 1){
+            scale = 1;
+        }
+        
+        moveOut = moveOut*scale;
+        
+        return moveOut;
+   }
 }
