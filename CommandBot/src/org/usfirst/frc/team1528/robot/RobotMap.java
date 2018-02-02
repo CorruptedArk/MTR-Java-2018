@@ -50,4 +50,8 @@ public class RobotMap {
 	public static final int RIGHT_FRONT = 1;
 	public static final int LEFT_REAR = 2;
 	public static final int RIGHT_REAR = 3;
+	
+	public static final int LIFT_MOTOR_ID = 4;
+	public static final int LEFT_FLYWHEEL_ID = 5;
+	public static final int RIGHT_FLYWHEEL_ID = 6;
 }

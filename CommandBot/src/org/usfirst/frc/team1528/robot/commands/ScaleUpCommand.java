@@ -4,34 +4,33 @@ import org.usfirst.frc.team1528.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-
 /**
  *
  */
-public class TeleOpCommand extends Command {
+public class ScaleUpCommand extends Command {
 
-
-    public TeleOpCommand() {
+	boolean isCommandFinished;
+	
+    public ScaleUpCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.kDriveSystem);
-    	requires(Robot.kLiftSystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
+    	isCommandFinished = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.kLiftSystem.moveLift();
-    	Robot.kDriveSystem.teleOpDrive();
+    	Robot.kDriveSystem.stepUpScale();
+    	isCommandFinished = true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isCommandFinished;
     }
 
     // Called once after isFinished returns true

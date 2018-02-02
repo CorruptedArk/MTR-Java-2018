@@ -18,6 +18,7 @@ import org.usfirst.frc.team1528.robot.commands.LeftAutoCommand;
 import org.usfirst.frc.team1528.robot.commands.RightAutoCommand;
 import org.usfirst.frc.team1528.robot.commands.TeleOpCommand;
 import org.usfirst.frc.team1528.robot.subsystems.DriveSystem;
+import org.usfirst.frc.team1528.robot.subsystems.LiftSystem;
 import org.usfirst.frc.team1528.robot.subsystems.ExampleSubsystem;
 
 /**
@@ -32,6 +33,8 @@ public class Robot extends TimedRobot {
 			= new ExampleSubsystem();
 	public static final DriveSystem kDriveSystem 
 			= new DriveSystem();
+	public static final LiftSystem kLiftSystem
+			= new LiftSystem();
 	public static OI m_oi;
 
 	Command m_autonomousCommand;

@@ -4,29 +4,24 @@ import org.usfirst.frc.team1528.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-
 /**
  *
  */
-public class TeleOpCommand extends Command {
+public class ReleaseBoxCommand extends Command {
 
-
-    public TeleOpCommand() {
+    public ReleaseBoxCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.kDriveSystem);
     	requires(Robot.kLiftSystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.kLiftSystem.moveLift();
-    	Robot.kDriveSystem.teleOpDrive();
+    	Robot.kLiftSystem.releaseBox();
     }
 
     // Make this return true when this Command no longer needs to run execute()
