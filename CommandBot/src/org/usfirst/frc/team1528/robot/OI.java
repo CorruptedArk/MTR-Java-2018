@@ -12,6 +12,7 @@ import org.usfirst.frc.team1528.robot.commands.ReleaseBoxCommand;
 import org.usfirst.frc.team1528.robot.commands.ScaleDownCommand;
 import org.usfirst.frc.team1528.robot.commands.ScaleUpCommand;
 import org.usfirst.frc.team1528.robot.commands.StopFlywheelsCommand;
+import org.usfirst.frc.team1528.robot.commands.TogglePistonCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -56,6 +57,7 @@ public class OI {
 	public static Button releaseButton = new JoystickButton(stick, RobotMap.B_BUTTON);
 	public static Button scaleUpButton = new JoystickButton(stick, RobotMap.LEFT_BUMPER);
 	public static Button scaleDownButton = new JoystickButton(stick, RobotMap.RIGHT_BUMPER);
+	public static Button pistonToggleButton = new JoystickButton(stick, RobotMap.A_BUTTON);
 	
 	public OI() {
 		grabButton.whileHeld(new GrabBoxCommand());
@@ -66,6 +68,8 @@ public class OI {
 		
 		scaleUpButton.whenPressed(new ScaleUpCommand());
 		scaleDownButton.whenPressed(new ScaleDownCommand());
+		
+		pistonToggleButton.whenPressed(new TogglePistonCommand());
 	}
 	
 	/**
