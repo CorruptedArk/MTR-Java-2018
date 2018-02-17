@@ -25,6 +25,7 @@ public class ScaleDownCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.kDriveSystem.stepDownScale();
+    	System.out.println("scaling down");
     	isCommandFinished = true;
     }
 

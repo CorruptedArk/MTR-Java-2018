@@ -47,16 +47,16 @@ public class RobotMap {
 	
     // Motor ID numbers, will likely change based on electronics
     // Drive Motor IDs 
-	public static final int LEFT_FRONT = 0;
+	public static final int LEFT_FRONT = 3;
 	public static final int RIGHT_FRONT = 1;
 	public static final int LEFT_REAR = 2;
-	public static final int RIGHT_REAR = 3;
+	public static final int RIGHT_REAR = 0;
 	
 	// Lift Motor IDs
-	public static final int LIFT_MOTOR_LOWER_ID = 4;
-	public static final int LIFT_MOTOR_UPPER_ID = 5;
-	public static final int LEFT_FLYWHEEL_ID = 6;
-	public static final int RIGHT_FLYWHEEL_ID = 7;
+	public static final int LIFT_MOTOR_LOWER_ID = 5;
+	public static final int LIFT_MOTOR_UPPER_ID = 6;
+	public static final int LEFT_FLYWHEEL_ID = 7;
+	public static final int RIGHT_FLYWHEEL_ID = 8;
 	
 	//Digital Inputs ID numbers, will likely change based on electronics
 	public static final int LIMIT_SWITCH_LOWER_ID = 0;
