@@ -65,4 +65,6 @@ public class RobotMap {
 	// Pneumatic Control Module (PCM) ID numbers, may change based on electronics
 	public static final int PUSHER_IN_ID = 0;
 	public static final int PUSHER_OUT_ID = 1;
+	public static final int CLAMP_IN_ID = 2;
+	public static final int CLAMP_OUT_ID = 3;
 }

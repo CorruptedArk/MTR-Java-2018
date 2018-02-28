@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team1528.robot;
 
+import org.usfirst.frc.team1528.robot.commands.ClampPistonCommand;
 import org.usfirst.frc.team1528.robot.commands.GrabBoxCommand;
 import org.usfirst.frc.team1528.robot.commands.ReleaseBoxCommand;
 import org.usfirst.frc.team1528.robot.commands.ScaleDownCommand;
@@ -53,11 +54,13 @@ public class OI {
 	
 	public static final double ZERO_MARGIN = 0.18;
 	public static Joystick stick = new Joystick(0);
+	public static Joystick partner = new Joystick(1);
 	//public static Button grabButton = new JoystickButton(stick, RobotMap.X_BUTTON);
 	//public static Button releaseButton = new JoystickButton(stick, RobotMap.B_BUTTON);
 	public static Button scaleUpButton = new JoystickButton(stick, RobotMap.LEFT_BUMPER);
 	public static Button scaleDownButton = new JoystickButton(stick, RobotMap.RIGHT_BUMPER);
-	public static Button pistonToggleButton = new JoystickButton(stick, RobotMap.A_BUTTON);
+	public static Button pistonToggleButton = new JoystickButton(partner, RobotMap.A_BUTTON);
+	public static Button clampToggleButton = new JoystickButton(partner, RobotMap.B_BUTTON);
 	
 	public OI() {
 		//grabButton.whileHeld(new GrabBoxCommand());
@@ -70,6 +73,7 @@ public class OI {
 		scaleDownButton.whenPressed(new ScaleDownCommand());
 		
 		pistonToggleButton.whenPressed(new TogglePistonCommand());
+		clampToggleButton.whenPressed(new ClampPistonCommand());
 	}
 	
 	/**
