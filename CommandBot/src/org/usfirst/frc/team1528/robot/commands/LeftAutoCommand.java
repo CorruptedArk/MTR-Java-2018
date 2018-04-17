@@ -20,11 +20,13 @@ public class LeftAutoCommand extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	autoIsFinished = false;
+    	Robot.kPushSystem.pullPistonIn();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.kDriveSystem.autoDriveLeft();
+    	
     	autoIsFinished = true;
     }
 

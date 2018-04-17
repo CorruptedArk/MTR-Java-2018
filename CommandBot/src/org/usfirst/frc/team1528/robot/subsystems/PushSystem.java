@@ -16,11 +16,11 @@ public class PushSystem extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	private void pushPistonOut() {
+	public void pushPistonOut() {
 		pusher.set(Value.kForward);
 	}
 	
-	private void pullPistonIn() {
+	public void pullPistonIn() {
 		pusher.set(Value.kReverse);
 	}
 	

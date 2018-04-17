@@ -34,6 +34,7 @@ public class DriveSystem extends Subsystem {
 	}
 	
 	public void teleOpDrive() {
+		drive.setSafetyEnabled(true);
 		double ySpeed = OI.buffer(RobotMap.LEFT_Y_AXIS, OI.stick, true, OI.ZERO_MARGIN, -OI.ZERO_MARGIN, scale);
 		double xSpeed = OI.buffer(RobotMap.LEFT_X_AXIS, OI.stick, false, OI.ZERO_MARGIN, -OI.ZERO_MARGIN, scale);
 		double zRotation = OI.buffer(RobotMap.RIGHT_X_AXIS, OI.stick, false, OI.ZERO_MARGIN, -OI.ZERO_MARGIN, scale);
@@ -47,9 +48,17 @@ public class DriveSystem extends Subsystem {
 	}
 	
 	// numbers not final, will need to be changed during testing
+	public void autoDriveForward() {
+		drive.setSafetyEnabled(false);
+		Timer.delay(4.0);
+		drive.driveCartesian(0.0, 0.3, -0.03);
+		Timer.delay(2.75);
+		drive.driveCartesian(0.0, 0.0, 0.0);
+	}
+	
 	public void autoDriveLeft() {
 		drive.driveCartesian(1.0, 0.0, 0.0);
-		Timer.delay(0.5);
+		Timer.delay(0.75);
 		drive.driveCartesian(0.0, -1.0, 0.0);
 		Timer.delay(0.1);
 		drive.driveCartesian(0.0, 0.0, 0.0);

@@ -61,6 +61,7 @@ public class RobotMap {
 	//Digital Inputs ID numbers, will likely change based on electronics
 	public static final int LIMIT_SWITCH_LOWER_ID = 0;
 	public static final int LIMIT_SWITCH_UPPER_ID = 1;
+	public static final int CAMERA_SERVER = 1;
 	
 	// Pneumatic Control Module (PCM) ID numbers, may change based on electronics
 	public static final int PUSHER_IN_ID = 0;

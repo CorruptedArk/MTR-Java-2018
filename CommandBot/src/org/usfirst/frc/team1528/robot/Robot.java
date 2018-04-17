@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team1528.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team1528.robot.commands.ExampleCommand;
+import org.usfirst.frc.team1528.robot.commands.ForwardAutoCommand;
 import org.usfirst.frc.team1528.robot.commands.LeftAutoCommand;
 import org.usfirst.frc.team1528.robot.commands.RightAutoCommand;
 import org.usfirst.frc.team1528.robot.commands.TeleOpCommand;
@@ -45,7 +47,7 @@ public class Robot extends TimedRobot {
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	SendableChooser<String> m_chooser = new SendableChooser<>();
 
 	TeleOpCommand m_teleOpCommand = new TeleOpCommand();
 	/**
@@ -55,9 +57,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
+		m_chooser.addDefault("Default Auto", "Forward");
+		m_chooser.addObject("Nothing", "Nothing");
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		CameraServer.getInstance().startAutomaticCapture();
 	}
 
 	/**
@@ -92,6 +96,15 @@ public class Robot extends TimedRobot {
 		String gameMessage;
 		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
 		
+		if(((SendableChooser<String>)SmartDashboard.getData("Auto mode")).getSelected() == "Forward" )
+		{
+			m_autonomousCommand = new ForwardAutoCommand();
+			// schedule the autonomous command (example)
+			if (m_autonomousCommand != null) {
+				m_autonomousCommand.start();
+			}
+		}
+		/*
 		if(gameMessage.charAt(0) == 'L') {
 			// if our color is on the left
 			m_autonomousCommand = new LeftAutoCommand();
@@ -99,7 +112,8 @@ public class Robot extends TimedRobot {
 		else {
 			// if our color is on the right
 			m_autonomousCommand = new RightAutoCommand();
-		}
+		}*/
+		
 		
 
 		/*
@@ -109,10 +123,7 @@ public class Robot extends TimedRobot {
 		 * autonomousCommand = new ExampleCommand(); break; }
 		 */
 
-		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.start();
-		}
+		
 	}
 
 	/**

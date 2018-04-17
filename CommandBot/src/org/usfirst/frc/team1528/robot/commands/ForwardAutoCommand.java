@@ -7,14 +7,16 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class RightAutoCommand extends Command {
-
-	boolean autoIsFinished;
+public class ForwardAutoCommand extends Command {
 	
-    public RightAutoCommand() {
+	boolean autoIsFinished;
+
+    public ForwardAutoCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.kDriveSystem);
+    	requires(Robot.kClampSystem);
+    	requires(Robot.kPushSystem);
     }
 
     // Called just before this Command runs the first time
@@ -25,13 +27,14 @@ public class RightAutoCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.kPushSystem.pullPistonIn();
-    	Robot.kDriveSystem.autoDriveRight();
+    	Robot.kClampSystem.pushClampOut();
+    	Robot.kDriveSystem.autoDriveForward();
     	autoIsFinished = true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return autoIsFinished;
+    	return autoIsFinished;
     }
 
     // Called once after isFinished returns true
