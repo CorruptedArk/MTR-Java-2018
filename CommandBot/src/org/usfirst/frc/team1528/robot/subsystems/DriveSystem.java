@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
  *
@@ -23,7 +23,8 @@ public class DriveSystem extends Subsystem {
 	
 	private double scale;
 	
-	MecanumDrive drive = new MecanumDrive(leftFront, leftRear, rightFront, rightRear);
+	private DifferentialDrive frontDrive = new DifferentialDrive(leftFront, rightFront);
+	private DifferentialDrive rearDrive = new DifferentialDrive(leftRear, rightRear);
 	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -32,49 +33,76 @@ public class DriveSystem extends Subsystem {
 		
 		scale = 1;
 	}
+
+	private void coordinatedDrive(double leftValue, double rightValue)
+	{
+		frontDrive.tankDrive(leftValue, rightValue);
+		rearDrive.tankDrive(leftValue, rightValue);
+	}
+	
 	
 	public void teleOpDrive() {
-		drive.setSafetyEnabled(true);
-		double ySpeed = OI.buffer(RobotMap.LEFT_Y_AXIS, OI.stick, true, OI.ZERO_MARGIN, -OI.ZERO_MARGIN, scale);
-		double xSpeed = OI.buffer(RobotMap.LEFT_X_AXIS, OI.stick, false, OI.ZERO_MARGIN, -OI.ZERO_MARGIN, scale);
-		double zRotation = OI.buffer(RobotMap.RIGHT_X_AXIS, OI.stick, false, OI.ZERO_MARGIN, -OI.ZERO_MARGIN, scale);
+		frontDrive.setSafetyEnabled(true);
+		rearDrive.setSafetyEnabled(true);
+		double leftSpeed = OI.buffer(RobotMap.LEFT_Y_AXIS, OI.stick, false, OI.ZERO_MARGIN, -OI.ZERO_MARGIN, scale);
+		double rightSpeed = OI.buffer(RobotMap.RIGHT_Y_AXIS, OI.stick, false, OI.ZERO_MARGIN, -OI.ZERO_MARGIN, scale);
 		
-		drive.driveCartesian(xSpeed, ySpeed, zRotation);
+		coordinatedDrive(leftSpeed, rightSpeed);
+		
 		System.out.println("scale is " + scale);
 	}
 	
 	public void stop() {
-		drive.driveCartesian(0, 0, 0);
+		coordinatedDrive(0,0);
 	}
 	
 	// numbers not final, will need to be changed during testing
 	public void autoDriveForward() {
-		drive.setSafetyEnabled(false);
+		frontDrive.setSafetyEnabled(false);
+		rearDrive.setSafetyEnabled(false);
 		Timer.delay(4.0);
-		drive.driveCartesian(0.0, 0.3, -0.03);
+		coordinatedDrive(0.3,0.3);
 		Timer.delay(2.75);
-		drive.driveCartesian(0.0, 0.0, 0.0);
+		stop();
 	}
 	
 	public void autoDriveLeft() {
-		drive.driveCartesian(1.0, 0.0, 0.0);
-		Timer.delay(0.75);
-		drive.driveCartesian(0.0, -1.0, 0.0);
-		Timer.delay(0.1);
-		drive.driveCartesian(0.0, 0.0, 0.0);
+		frontDrive.setSafetyEnabled(false);
+		rearDrive.setSafetyEnabled(false);
+		coordinatedDrive(0.3,0.3); // drive forward at 30% power
+		Timer.delay(2.75); // delay for 2.75 seconds
+		stop();
+		coordinatedDrive(-0.3,0.3); // turn left at 30% power
+		Timer.delay(0.75); // delay for 0.75 seconds
+		stop();
+		coordinatedDrive(0.3,0.3); // drive forward at 30% power
+		Timer.delay(0.75); // delay for 0.75 seconds
+		stop();
+		coordinatedDrive(0.3,-0.3); // turn right at 30% power
+		Timer.delay(0.75); // delay for 0.75 seconds
+		stop();
 	}
 
 	// numbers not final, will need to be changed during testing
 	public void autoDriveRight() {
-		drive.driveCartesian(1.0, 0.0, 0.0);
-		Timer.delay(0.5);
-		drive.driveCartesian(0.0, 1.0, 0.0);
-		Timer.delay(0.1);
-		drive.driveCartesian(0.0, 0.0, 0.0);
+		frontDrive.setSafetyEnabled(false);
+		rearDrive.setSafetyEnabled(false);
+		coordinatedDrive(0.3,0.3); // drive forward at 30% power
+		Timer.delay(2.75); // delay for 2.75 seconds
+		stop();
+		coordinatedDrive(0.3,-0.3); // turn right at 30% power
+		Timer.delay(0.75); // delay for 0.75 seconds
+		stop();
+		coordinatedDrive(0.3,0.3); // drive forward at 30% power
+		Timer.delay(0.75); // delay for 0.75 seconds
+		stop();
+		coordinatedDrive(-0.3,0.3); // turn left at 30% power
+		Timer.delay(0.75); // delay for 0.75 seconds
+		stop();
 	}
 	
 	public void stepUpScale() {
-		drive.driveCartesian(0, 0, 0);
+		stop();
 		if(scale < 1) {
 			scale += SCALE_INCREMENT;
 		}
@@ -82,7 +110,7 @@ public class DriveSystem extends Subsystem {
 	}
 	
 	public void stepDownScale() {
-		drive.driveCartesian(0, 0, 0);
+		stop();
 		if(scale > 0)
 		{
 			scale -= SCALE_INCREMENT;
